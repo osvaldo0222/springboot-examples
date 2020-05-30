@@ -41,6 +41,6 @@ public class UserService implements ICrudOperation<User, Long> {
 
     @Override
     public User findById(Long id) {
-        return null;
+        return userRepository.findById(id).orElse(null);
     }
 }

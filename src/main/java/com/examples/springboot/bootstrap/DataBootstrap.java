@@ -23,11 +23,6 @@ public class DataBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        User user = new User();
-        user.setFirstName("Osvaldo");
-        userService.createOrUpdate(user);
 
-        userService.createOrUpdate(user);
-        userService.deleteById(5L);
     }
 }
