@@ -18,21 +18,25 @@ public interface ICrudOperation<T, ID> {
     T createOrUpdate(T entity);
 
     /**
+     * Function to delete a instance of an object on the persistence layer.
      *
-     * @param id
+     * @param id entity id that going to be deleted
      */
     void deleteById(ID id);
 
     /**
+     * Function to get all instances of an object on the persistence layer.
      *
-     * @return
+     * @return Collection<entity> - collection of all the entities on db
      */
     Collection<T> findAll();
 
     /**
+     * Find an instance of the entity by primary key.
      *
-     * @param id
-     * @return
+     * @param id primary key
+     * @return entity type - entity if exists
+     *         Null - if not
      */
     T findById(ID id);
 }

@@ -36,7 +36,7 @@ public class UserService implements ICrudOperation<User, Long> {
 
     @Override
     public Collection<User> findAll() {
-        return null;
+        return userRepository.findAll();
     }
 
     @Override
