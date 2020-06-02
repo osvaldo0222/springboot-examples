@@ -48,11 +48,15 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+        Logger.getInstance().getLog(this.getClass()).info("Data bootstrap [...]");
+
         //Creating default Roles and Privileges
         createDefaultRolesAndPrivilege();
 
         //Creating default superusers
         createDefaultSuperusers();
+
+        Logger.getInstance().getLog(this.getClass()).info("Ending bootstrap [...]");
     }
 
     private void createDefaultSuperusers() {
@@ -61,17 +65,28 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         //All roles for the superuser
         Collection<Role> superuserRoles = roleService.findAll();
 
-        //Check if the superuser exits
-        User user = userService.findByUsername("osvaldo");
-        if (user == null) {
-            user = new User();
-            user.setFirstName("Osvaldo");
-            user.setLastName("Fernandez");
-            user.setUsername("osvaldo");
-            user.setPassword(passwordEncoder.encode("admin"));
-            user.setEnabled(false);
-            user.setRoles(superuserRoles);
-            user = userService.createOrUpdate(user);
+        //Check if the superusers exits
+        User userOsvaldo = userService.findByUsername("osvaldo");
+        if (userOsvaldo == null) {
+            userOsvaldo = new User();
+            userOsvaldo.setFirstName("Osvaldo");
+            userOsvaldo.setLastName("Fernandez");
+            userOsvaldo.setUsername("osvaldo");
+            userOsvaldo.setPassword(passwordEncoder.encode("admin"));
+            userOsvaldo.setEnabled(false);
+            userOsvaldo.setRoles(superuserRoles);
+            userService.createOrUpdate(userOsvaldo);
+        }
+        User userEdgar = userService.findByUsername("edgar");
+        if (userEdgar == null) {
+            userEdgar = new User();
+            userEdgar.setFirstName("Edgar");
+            userEdgar.setLastName("Garcia");
+            userEdgar.setUsername("edgar");
+            userEdgar.setPassword(passwordEncoder.encode("admin"));
+            userEdgar.setEnabled(false);
+            userEdgar.setRoles(superuserRoles);
+            userService.createOrUpdate(userOsvaldo);
         }
     }
 
