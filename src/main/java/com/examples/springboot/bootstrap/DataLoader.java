@@ -60,7 +60,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     }
 
     private void createDefaultSuperusers() {
-        Logger.getInstance().getLog(this.getClass()).info("Creating and update superusers [...]");
+        Logger.getInstance().getLog(this.getClass()).info("Creating and update superusers...");
 
         //All roles for the superuser
         Collection<Role> superuserRoles = roleService.findAll();
@@ -72,8 +72,8 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
             userOsvaldo.setFirstName("Osvaldo");
             userOsvaldo.setLastName("Fernandez");
             userOsvaldo.setUsername("osvaldo");
-            userOsvaldo.setPassword(passwordEncoder.encode("admin"));
-            userOsvaldo.setEnabled(false);
+            userOsvaldo.setPassword(passwordEncoder.encode("123"));
+            userOsvaldo.setEnabled(true);
             userOsvaldo.setRoles(superuserRoles);
             userService.createOrUpdate(userOsvaldo);
         }
@@ -83,33 +83,32 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
             userEdgar.setFirstName("Edgar");
             userEdgar.setLastName("Garcia");
             userEdgar.setUsername("edgar");
-            userEdgar.setPassword(passwordEncoder.encode("admin"));
-            userEdgar.setEnabled(false);
+            userEdgar.setPassword(passwordEncoder.encode("123"));
+            userEdgar.setEnabled(true);
             userEdgar.setRoles(superuserRoles);
-            userService.createOrUpdate(userOsvaldo);
+            userService.createOrUpdate(userEdgar);
         }
     }
 
     public void createDefaultRolesAndPrivilege() {
-        Logger.getInstance().getLog(this.getClass()).info("Creating and update Application Privileges [...]");
+        Logger.getInstance().getLog(this.getClass()).info("Creating and update Application Privileges...");
 
         Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
         Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
 
-        Logger.getInstance().getLog(this.getClass()).info("Creating and update Application Roles [...]");
+        Logger.getInstance().getLog(this.getClass()).info("Creating and update Application Roles...");
 
         createRoleIfNotFound("ROLE_ADMIN", Arrays.asList(readPrivilege, writePrivilege));
         createRoleIfNotFound("ROLE_USER", Arrays.asList(readPrivilege));
     }
 
-    private Role createRoleIfNotFound(String role_user, Collection<Privilege> privileges) {
+    private void createRoleIfNotFound(String role_user, Collection<Privilege> privileges) {
         Role role = roleService.findByName(role_user);
         if (role == null) {
             role = new Role(role_user);
             role.setPrivileges(privileges);
             roleService.createOrUpdate(role);
         }
-        return role;
     }
 
     private Privilege createPrivilegeIfNotFound(String name) {

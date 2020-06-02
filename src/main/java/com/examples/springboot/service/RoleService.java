@@ -32,7 +32,7 @@ public class RoleService implements ICrudOperation<Role, Long> {
         if (role != null) {
             roleRepository.delete(role);
         } else {
-            Logger.getInstance().getLog(UserService.class).error("This role not exists...!");
+            Logger.getInstance().getLog(this.getClass()).error("This role not exists...!");
         }
     }
 

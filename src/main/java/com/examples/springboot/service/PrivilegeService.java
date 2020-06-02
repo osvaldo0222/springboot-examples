@@ -32,7 +32,7 @@ public class PrivilegeService implements ICrudOperation<Privilege, Long> {
         if (privilege != null) {
             privilegeRepository.delete(privilege);
         } else {
-            Logger.getInstance().getLog(UserService.class).error("This privilege not exists...!");
+            Logger.getInstance().getLog(this.getClass()).error("This privilege not exists...!");
         }
     }
 

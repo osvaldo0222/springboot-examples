@@ -33,7 +33,7 @@ public class UserService implements ICrudOperation<User, Long> {
         if (user != null) {
             userRepository.delete(user);
         } else {
-            Logger.getInstance().getLog(UserService.class).error("This user ...");
+            Logger.getInstance().getLog(this.getClass()).error("This user ...");
         }
     }
 

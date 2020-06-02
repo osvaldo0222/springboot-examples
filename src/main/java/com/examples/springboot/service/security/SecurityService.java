@@ -4,6 +4,7 @@ import com.examples.springboot.model.Privilege;
 import com.examples.springboot.model.Role;
 import com.examples.springboot.model.User;
 import com.examples.springboot.repository.UserRepository;
+import com.examples.springboot.util.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,10 +12,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 @Service
+@Transactional
 public class SecurityService implements UserDetailsService {
 
     private UserRepository userRepository;
@@ -27,6 +30,11 @@ public class SecurityService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
+
+        if (user == null) {
+            Logger.getInstance().getLog(this.getClass()).warn("User " + username + " not found!!");
+            throw new UsernameNotFoundException("User not fount!!!");
+        }
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getEnabled(), true, true, true, getAuthorities(user.getRoles()));
     }
