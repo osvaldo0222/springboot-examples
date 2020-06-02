@@ -6,11 +6,14 @@ import com.examples.springboot.service.common.ICrudOperation;
 import com.examples.springboot.util.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 
 @Service
+@Transactional
 public class UserService implements ICrudOperation<User, Long> {
+
     private UserRepository userRepository;
 
     @Autowired
@@ -42,5 +45,9 @@ public class UserService implements ICrudOperation<User, Long> {
     @Override
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
+    }
+
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }

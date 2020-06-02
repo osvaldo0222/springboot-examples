@@ -10,7 +10,8 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
-    private String email;
+    @Column(unique = true)
+    private String username;
     private String password;
     private String token;
     private Boolean enabled;
@@ -41,12 +42,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String email) {
+        this.username = email;
     }
 
     public String getPassword() {

@@ -14,6 +14,13 @@ public class Role {
     @ManyToMany
     private Collection<Privilege> privileges;
 
+    public Role() {
+    }
+
+    public Role(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }
