@@ -2,10 +2,9 @@ package com.examples.springboot.model;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
 
-@Entity
-public class UserGeneric {
+@Entity(name = "GenericUser")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -16,8 +15,6 @@ public class UserGeneric {
     private String password;
     private String token;
     private Boolean enabled;
-    @OneToMany
-    private List<Health> health;
     @ManyToMany
     private Collection<Role> roles;
 
